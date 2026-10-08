@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+          <h4 class="mb-0 font-size-18">Operator</h4>
+          <div class="page-title-right">
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item"><span class="text-muted fw-light">Master Setup</span></li>
+              <li class="breadcrumb-item active">Operator</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row mt-2">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <ejs-grid #Grid [allowSorting]="true"  [allowPaging]="true" [pageSettings]='pageSettings' [editSettings]="editSettings" [toolbar]="toolbar" [gridLines]="'Both'" (actionBegin)='actionBegin($event)' (actionComplete)='actionComplete($event)' [allowExcelExport]='true' [enableAdaptiveUI]="enableAdaptiveUIFlag"
+              [rowRenderingMode]="rowRenderingMode" (toolbarClick)='toolbarClick($event)' (excelQueryCellInfo)='exportQueryCellInfo($event)'>
+              <e-columns>
+                <e-column field='operatorID' headerText='Operator Code' [isPrimaryKey]="true" width="50" minWidth="50"></e-column>
+                <e-column field='operatorName' headerText="Operator Name" width="200" minWidth="120"></e-column>
+                <e-column field='email' headerText="Email" width="100" minWidth="100"></e-column>
+                <e-column field='status' headerText="Status" width="50" minWidth="50">
+                  <ng-template #template let-data>
+                    <div *ngIf="data.status === 'Active';else Inactive">
+                      <span class="badge badge-soft-success">{{data.status}}</span>
+                    </div>
+                    <ng-template #Inactive>
+                      <div>
+                          <span class="badge badge-soft-danger">{{data.status}}</span>
+                      </div>
+                    </ng-template>
+                  </ng-template>
+                </e-column>
+              </e-columns>
+              <ng-template #editSettingsTemplate let-data>
+                <div [formGroup]="operatorForm">
+                  <div class="row">
+                    <div class="form-group required">
+                      <ejs-textbox formControlName="operatorID" tabindex="1" [maxlength]="10" placeholder="Operator Code" floatLabelType="Auto" [readonly]="!data.isAdd"  [cssClass]="!data.isAdd ? 'readonly-bg' : ''" oninput="this.value = this.value.toUpperCase()" autocomplete="off"></ejs-textbox>
+                      <div [style.visibility]='validateControl("operatorID")? "visible": "hidden"'>
+                          <label class="e-error" for="operatorID" style="display: block;">*Code is required</label>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="row">
+                    <div class="form-group required">
+                      <ejs-textbox formControlName="operatorName" tabindex="2" [maxlength]="50" placeholder="Operator Name" floatLabelType="Auto" autocomplete="off"></ejs-textbox>
+                      <div [style.visibility]='validateControl("operatorName")? "visible": "hidden"'>
+                          <label class="e-error" for="operatorName" style="display: block;">*Name is required</label>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="row">
+                    <div class="form-group">
+                      <ejs-textbox formControlName="email" tabindex="3" [maxlength]="50" placeholder="Email" floatLabelType="Auto" autocomplete="off"></ejs-textbox>
+                      <div [style.visibility]='validateControl("email")? "visible": "hidden"'>
+                          <label class="e-error" for="email" style="display: block;">*Email is required</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ejs-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+  

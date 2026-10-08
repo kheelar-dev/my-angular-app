@@ -1,0 +1,70 @@
+<div class="container-xxl flex-grow-1 container-p-y my-0">
+    <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">User Management</h4>
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><span class="text-muted fw-light">Utility</span></li>
+                <li class="breadcrumb-item active">User Management</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+                <ejs-grid #Grid allowResizing="true" [allowTextWrap]="true" [allowSorting]="true" [allowPaging]="true" [pageSettings]='pageSettings' [editSettings]="editSettings" [toolbar]="toolbar" [gridLines]="'Both'" (actionBegin)='actionBegin($event)' (actionComplete)='actionComplete($event)' [allowExcelExport]='true' >
+                    <e-columns>
+                      <e-column field='email' headerText="Email" width="180"></e-column> 
+                      <e-column field='role' headerText="Role" width="100"></e-column>
+                    </e-columns>
+                    <ng-template #editSettingsTemplate let-data>
+                      <div [formGroup]="registerForm">
+
+                        <div class="row mt-0">
+                          <div class="form-group col-md-6 required-label">
+                            <ejs-textbox formControlName="email" placeholder="Email" floatLabelType="Auto" tabindex="2"></ejs-textbox>
+                            <div *ngIf='validateControl("email")'>
+                              <label class="e-error" for="email" style="display: block;">*Email field is required</label>
+                            </div>
+                          </div>
+                          <div class="form-group col-md-6 required-label">
+                            <ejs-textbox type="Password" formControlName="password" placeholder="Password" floatLabelType="Auto" tabindex="3"></ejs-textbox>
+                            <div *ngIf="validateControl('password') && hasError('password', 'required')">
+                            <label class="e-error" >*Password is required</label>
+                          </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-6 required-label">
+                            <ejs-textbox type="Password" formControlName="confirmPassword" placeholder="Confirm Password" floatLabelType="Auto" tabindex="4"></ejs-textbox>
+                            <div>
+                              <label *ngIf="validateControl('confirmPassword') && hasError('confirmPassword', 'required')" class="e-error" for="confirmPassword" style="display: block;">*Confirm Password is required</label>
+                              <label *ngIf="validateControl('confirmPassword') && hasError('confirmPassword', 'mustMatch')" class="e-error" for="confirmPassword" style="display: block;">*Confirm Password must be match</label>
+                          </div>
+                          </div>
+                          <div class="form-group col-md-6 required-label">
+                            <ejs-dropdownlist formControlName="role" tabindex="5" [dataSource]='roleList' [fields]="{ text: 'name', value: 'name' }"   placeholder="Role" floatLabelType="Auto"></ejs-dropdownlist>
+                            <div *ngIf='validateControl("role")'>
+                              <label class="e-error" for="role" style="display: block;">*Role field is required</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ejs-grid>
+            </div>
+          </div>
+        </div>
+      </div>    
+  </div>
+
+  
+  <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+  
+ 

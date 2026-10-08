@@ -1,0 +1,5 @@
+{
+    "baseUrl": "http://localhost:5121/api/v1.0",
+    "domain":"localhost:5121"
+}
+  

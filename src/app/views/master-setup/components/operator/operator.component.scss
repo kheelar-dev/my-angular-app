@@ -1,0 +1,13 @@
+::ng-deep .required .e-float-text::after {
+    content: ' *';
+    color: red;
+}
+
+::ng-deep .readonly-bg .e-control.e-textbox {
+    background-color: #e9edf1 !important;
+    pointer-events: none !important; /* နိပ်မရအောင် */
+}
+
+::ng-deep .e-grid .e-row:nth-child(even) {
+    background-color: #f9f9f9 !important; /* အဖြူမှအနည်းငယ်မီးသွေးရောင် */
+}
